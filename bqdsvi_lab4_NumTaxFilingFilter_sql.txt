@@ -1,0 +1,8 @@
+#standardSQL
+# UNION Wildcard and returning a table suffix
+SELECT
+  COUNT(*) as number_of_filings,
+  CONCAT("2",_TABLE_SUFFIX) AS year_filed
+FROM `bigquery-public-data.irs_990.irs_990_2*`
+GROUP BY year_filed
+ORDER BY year_filed DESC

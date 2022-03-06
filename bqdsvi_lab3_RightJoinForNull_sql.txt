@@ -1,0 +1,10 @@
+#standardSQL
+# what are these products?
+# add more fields in the SELECT STATEMENT
+SELECT DISTINCT
+website.productSKU AS website_SKU,
+inventory.*
+FROM `data-to-insights.ecommerce.all_sessions_raw` AS website
+RIGHT JOIN `data-to-insights.ecommerce.products` AS inventory
+ON website.productSKU = inventory.SKU
+WHERE website.productSKU IS NULL

@@ -1,0 +1,13 @@
+#standardSQL
+# how can we find the products with more than 1 sku?
+SELECT
+DISTINCT
+COUNT(DISTINCT productSKU) AS SKU_count,
+STRING_AGG(DISTINCT productSKU LIMIT 5) AS SKU,
+v2ProductName
+FROM `data-to-insights.ecommerce.all_sessions_raw`
+WHERE productSKU IS NOT NULL
+GROUP BY v2ProductName
+HAVING SKU_count > 1
+ORDER BY SKU_count DESC
+# product name is not unique (expected for variants)

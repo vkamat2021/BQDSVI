@@ -1,0 +1,16 @@
+#standardSQL
+  # Find where tax records exist for 2015 but no corresponding Org Name
+SELECT
+  tax.ein AS tax_ein,
+  org.ein AS org_ein,
+  org.name,
+  tax.totrevenue,
+  tax.totfuncexpns
+FROM
+  `bigquery-public-data.irs_990.irs_990_2015` tax
+FULL JOIN
+  `bigquery-public-data.irs_990.irs_990_ein` org
+ON
+  tax.ein = org.ein
+WHERE
+  org.ein IS NULL

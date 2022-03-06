@@ -1,0 +1,18 @@
+#standardSQL
+  # Find the Org Names of all EINs for 2015 with some revenue or expenses, limit 100
+SELECT
+  tax.ein AS tax_ein,
+  org.ein AS org_ein,
+  org.name,
+  tax.totrevenue,
+  tax.totfuncexpns
+FROM
+  `bigquery-public-data.irs_990.irs_990_2015` AS tax
+JOIN
+  `bigquery-public-data.irs_990.irs_990_ein` AS org
+ON
+  tax.ein = org.ein
+WHERE
+  tax.totrevenue + tax.totfuncexpns > 0
+LIMIT
+  100;
